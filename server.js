@@ -7,7 +7,7 @@ const databaseConnection = require('./db')
   try {
     await databaseConnection
     const serverConnection = app.listen(port, () => console.log(`\nServer started\n`))
-    process.on('SIGINT', () => { databaseConnection.close() && serverConnection.close() &&
+    process.on('SIGINT', () => { serverConnection.close() &&
     console.log('\nServer was shut down gracefully') })
   } catch (error) { console.log(`\nServer encountered ${error}\n`) }
 })()

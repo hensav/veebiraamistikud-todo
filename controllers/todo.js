@@ -6,11 +6,11 @@ exports.list = async (req, res) => {
 }
 
 exports.addTodo = async (req, res) => {
-  const { name, description } = req.body
+  const { name } = req.body
+  console.log(name)
 
   const newTodo = await new Todos({
-    name,
-    description
+    name
   }).save()
 
   if (!newTodo) throw new Error('Not created')
@@ -19,26 +19,10 @@ exports.addTodo = async (req, res) => {
 
 exports.removeTodo = async (req, res) => {
 
-  const { id } = req.query
+  const { id } = req.body
 
   if (!isValid(id)) res.status(200).send(400, {message: 'invalid id'})
   const removeTodo = await Todos.findByIdAndRemove(id)
 
   res.status(200).send({message: "Todo removed", data: removeTodo})
-}
-
-exports.editTodo = async (req, res) => {
-  const { id, name, description } = req.body
-
-  if (!isValid(id)) {
-    const error = new Error('invalid id')
-    error.status = 400
-    throw error
-  }
-
-  const update = { $set: req.body }
-  const result = await Todos.findByIdAndUpdate(id, update)
-
-  res.status(200).send({message: `Todo with id ${id} updated`, data: result})
-
 }

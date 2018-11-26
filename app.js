@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
-const { json: jsonParser, urlencoded: urlencodedParser } = require('body-parser')
+app.use(bodyParser());
 
 let path = require('path')
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 app.use(cors({origin: '*'}))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -18,8 +22,6 @@ const errorHandler = (err, req, res, next) => res.status(err.status || 500).json
 })
 
 const notFoundHandler = (req, res, next) => res.status(404).json({ success: false, error: 'invalid route' })
-
-app.use(jsonParser(), urlencodedParser({ extended: false }))
 
 app.use('/api', require('./routes'), notFoundHandler, errorHandler)
 

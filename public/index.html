@@ -2,16 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Express.js TODO app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-
+    <title>Title</title>
 </head>
 <body>
-<main role="main" class="container">
-
-</main>
-<script>
-</script>
+    <h2>Add todo</h2>
+    <input id="todoField">
+    <button id="add">Add</button>
+    <table id="todos"></table>
 </body>
+<script>
+  window.onload = function(){
+    listTodos()
+
+    const addButton = document.getElementById("add")
+
+    addButton.onclick = () => {
+      let todoField = document.getElementById("todoField").value
+
+      fetch("/api/addTodo", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"name": todoField})
+      })
+        .then(() => {
+          listTodos()
+        })
+    }
+
+  }
+
+  const listTodos = () => {
+    const todos = fetch('/api/list')
+      .then((r) => r.json())
+      .then((r) => {
+      console.log(r)
+        let table = `
+        <table style="width:100%">
+                ${ r.map(todo => `<tr> <td> ${todo.name} </td> <td> <button onclick='deleteTodo("${todo._id}")'>Delete</button> </td> </tr>`).join(" ")}
+        </table>
+        `
+        document.getElementById("todos").innerHTML = table
+      })
+  }
+
+  const deleteTodo = (id) => {
+    fetch("/api/removeTodo", {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"id": id})
+    })
+      .then(listTodos())
+  }
+</script>
 </html>
