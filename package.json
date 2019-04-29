@@ -1,5 +1,5 @@
 {
-  "name": "taimed",
+  "name": "betterself-logger",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -16,16 +16,16 @@
     "express": "^4.16.3",
     "express-query-boolean": "^2.0.0",
     "mongoose": "^5.0.10",
-    "pug": "^2.0.3"
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hensav/taimed.git"
+    "url": "git+https://github.com/hensav/thesis-be.git"
   },
   "bugs": {
-    "url": "https://github.com/hensav/taimed/issues"
+    "url": "https://github.com/hensav/thesis-be/issues"
   },
-  "homepage": "https://github.com/hensav/taimed#readme",
+  "homepage": "https://github.com/hensav/thesis-be#readme",
   "description": ""
 }

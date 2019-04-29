@@ -1,9 +1,8 @@
 const asyncMiddleware = require('./utils/asyncMiddleware')
 const router = require('express').Router()
-const todo = require('./controllers/todo')
+const exercise = require('./controllers/exercise')
 
-router.get('/list', asyncMiddleware(todo.list))
-router.post('/addTodo', asyncMiddleware(todo.addTodo))
-router.delete('/removeTodo', asyncMiddleware(todo.removeTodo))
+router.get('/list', asyncMiddleware(exercise.list))
+router.get('/addLog', asyncMiddleware(exercise.addExercise))
 
 module.exports = router
